@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int j=0, p=0, i=0;
+        int n= nums.size();
+        if(n==0) return 0;
+        else if(n==1 && val== nums[0]) return 0 ;
+        else if(n==1 && val!= nums[0]) return 1;
+        for(i; i<n; i++){
+            if(nums[i]==val) {
+                p=i;
+                break;
+            }              
+        }
+       // cout<<p<<" "<<i<<endl;
+        if(i==n) return n;
+        int p2= i+1;
+        for(i; i<n;i++){
+            
+            if(p<n && p2<n && nums[p2]!=val){
+                nums[p++]=nums[p2];
+                
+                p2++;
+                
+            }
+            else{
+                p2++;
+            }
+            
+        }
+        return p;
+    }
+};
