@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int binary(int l, int r, int x, vector<int> &nums){
+        if(l<=r){
+            int mid= l+(r-l)/2;
+            if(nums[mid]==x) return mid;
+            else if(nums[mid]<x) return binary(mid+1,r,x,nums);
+            else return binary(l,mid-1,x,nums);
+        }
+        return -1;
+    }
+    int search(vector<int>& nums, int target) {
+        return binary(0, nums.size()-1,target, nums);
+    }
+};
