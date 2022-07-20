@@ -1,0 +1,33 @@
+class Solution {
+public:
+    void ne(string s,vector <string>& str){
+        
+        string n="";
+        for(int j=0; j<s.length(); j++){
+            
+            if(s[j]!=' ') {
+                n+=s[j];
+                
+            }
+            else{
+                str.push_back(n);
+                n = "";
+            }
+        }
+        str.push_back(n);
+    }
+    bool wordPattern(string pattern, string s) {
+        vector <string> str;
+        ne(s,str);
+        if(pattern.length()!= str.size()) return false;
+        unordered_map<char, string> m1;
+        unordered_map<string, char> m2;        
+        for(int i=0; i<pattern.length(); i++){
+            if(m2.find(str[i])==m2.end()) m2[str[i]]= pattern[i];
+            if(m1.find(pattern[i])== m1.end()) m1[pattern[i]]= str[i];
+            if(m1[pattern[i]]!= str[i] ||m2[str[i]]!= pattern[i]) return false;
+            
+        }
+            return true;
+    }
+};
