@@ -1,0 +1,33 @@
+class Solution {
+    private:
+        int middays(vector<int> weights, int w){
+            int days=1;
+            int curr_total=0;
+            for(int i=0; i<weights.size(); i++){
+                if(curr_total+weights[i]>w){
+                    days++;
+                    curr_total=weights[i];
+                }
+                else curr_total+=weights[i];
+            }
+            return days;
+        }
+
+
+    public:
+        int shipWithinDays(vector<int>& weights, int days) {
+            //use binary search
+            int left= *max_element(weights.begin(),weights.end());// minimum would be max of all weights
+            int max=0; // sum of all the weights
+            for(int i=0; i<weights.size(); i++){
+                max+= weights[i];
+            }
+            // binary search O(n*log(max-min))
+            while(left<max){
+                int mid= (left+max)/2;
+                if(middays(weights, mid)<= days) max= mid;
+                else left= mid+1;
+            }
+            return max;
+        }
+};
