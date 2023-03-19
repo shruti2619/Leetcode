@@ -1,0 +1,50 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int startind;
+        int N= s.size();
+        int maxlen = 1;
+        int currmax=1;
+        vector<vector <int>> dp(N, vector<int>(N));
+        for(int i=0; i<N; i++){
+            for(int j=i; j<i+2 && j<N; j++){
+                if(i==j){
+                    currmax=1;
+                    dp[i][j]=1;
+                    if (currmax>maxlen){
+                        startind=i;
+                        // endind=j;
+                    }
+                }
+                else if(s[i]==s[j]){
+                    currmax=2;
+                    dp[i][j]=1;
+                    maxlen=2;
+                    startind=i;
+                    // endind=j;
+                    // cout<<startind<<" "<<endind<<endl;
+                }
+                else dp[i][j]=0;
+            }
+        }
+        
+        for(int i=N-3; i>=0;i--){
+            for(int j=i+2; j<N; j++){
+                if(s[i]==s[j] && dp[i+1][j-1]==1){
+                    
+                    dp[i][j]=1;
+                    currmax=j-i+1;
+                    if(currmax>maxlen){
+                        startind=i;
+                        // endind=j;
+                        maxlen=currmax;
+                    }
+                    // cout<<startind<<" "<<maxlen<<endl;
+                }
+                else dp[i][j]=0;
+            }
+        }
+        string ans= s.substr(startind,maxlen);
+        return ans;
+    }
+};
